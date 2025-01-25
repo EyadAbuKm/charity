@@ -12,6 +12,7 @@ class MaterialAidGroupName extends Model
     protected $table = 'material_aid_group';   
     protected $primaryKey = 'ID';  
     public $timestamps = false; 
+    //
     protected $fillable = ['Name'];  // Define mass-assignable fields  
 
     // Define the relationship with MaterialAid  
