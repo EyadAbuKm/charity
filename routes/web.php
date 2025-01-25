@@ -15,6 +15,9 @@ use App\Models\HomeStatus;
 use app\Models\SyrianGovernorate;
 use App\Models\Donor;
 use App\Http\Controllers\AidController;
+use App\Http\Controllers\GroupMaterialAidController;  
+use App\Http\Controllers\GroupMaterialAidNameController;  
+
 
 //
 Route::middleware(['auth'])->group(function () {
@@ -145,6 +148,28 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/aid/add', [CashAidController::class, 'add'])->name('aid.add');
     Route::post('/aid/add_material', [MaterialAidController::class, 'add'])->name('aid.add_material');
 
+
+
+
+
+    Route::get('GroupMaterialAid/create', [GroupMaterialAidController::class, 'create'])->name('GroupMaterialAid.create');  
+    Route::post('GroupMaterialAid/add', [GroupMaterialAidController::class, 'add'])->name('GroupMaterialAid.add');
+
+    Route::get('GroupMaterialAid/index', [GroupMaterialAidController::class, 'index'])->name('GroupMaterialAid.index');
+
+    Route::get('GroupMaterialAid/index2', [GroupMaterialAidController::class, 'index2'])->name('GroupMaterialAid.index2');
+
+    
+//Route::post('GroupMaterialAid/store', [GroupMaterialAidController::class, 'store'])->name('GroupMaterialAid.store');
+
+// Route::get('/MaterialAidGroupName/create', [GroupMaterialAidNameController::class, 'create'])->name('MaterialAidGroupName.create');  
+// Route::post('/MaterialAidGroupName/add', [GroupMaterialAidNameController::class, 'add'])->name('MaterialAidGroupName.add');
+
+
+// Route::put('/GroupMaterialAid/{id}', [MaterialAidController::class, 'updateStatus']);
+
+// لتحديث الحالة في جدول mateial Aid
+Route::post('/update-aid-status', [GroupMaterialAidController::class, 'updateAidStatus']);
 
 });
 

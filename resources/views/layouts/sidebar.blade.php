@@ -43,6 +43,15 @@
               </a>
             </li>
 
+            
+            <li
+             >
+              <a class="sidenav-item-link" href="{{ route('visits.create') }}">
+                <i class="mdi mdi-map-marker-plus"></i>
+                <span class="nav-text">إضافة زيارة</span>
+              </a>
+            </li>
+
             <li>
               <a class="sidenav-item-link" href= "{{ route('aid.index',['Family_ID' => 0] ) }}" class="btn" target="_blank">
                 <i class="mdi mdi-cash-multiple"></i>
@@ -51,13 +60,29 @@
             </li>
 
 
-            <li
-             >
-              <a class="sidenav-item-link" href="{{ route('visits.create') }}">
-                <i class="mdi mdi-map-marker-plus"></i>
-                <span class="nav-text">إضافة زيارة</span>
+
+            <li>
+              <a class="sidenav-item-link" href= "{{ route('GroupMaterialAid.create') }}" class="btn" target="_blank">
+                <i class="mdi mdi-account-group"></i>
+                <span class="nav-text">إضافة أرقام الدعم الجماعي</span>
               </a>
             </li>
+
+            <li>
+              <a class="sidenav-item-link" href= "{{ route('GroupMaterialAid.index') }}" class="btn" target="_blank">
+                <i class="mdi mdi-account-group"></i>
+                <span class="nav-text">الدعم العيني الجماعي/موافقة</span>
+              </a>
+            </li>
+
+
+            <li>
+              <a class="sidenav-item-link" href= "{{ route('GroupMaterialAid.index2') }}" class="btn" target="_blank">
+                <i class="mdi mdi-account-group"></i>
+                <span class="nav-text">الدعم العيني الجماعي/تسليم</span>
+              </a>
+            </li>
+
 
 
 
