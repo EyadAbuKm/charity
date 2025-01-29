@@ -34,7 +34,7 @@
 
 
         <tbody>
-            @foreach($materialAids as $groupId => $group)
+            @foreach($cashAids as $groupId => $group)
             <tr style="margin-bottom: 5%">
                 <td>{{ \App\Models\CashAidGroup::find($groupId)->ID }}</td>
                 <td>{{ $group->first()->Date }}</td>                

@@ -54,6 +54,16 @@ class GroupCashAidController extends Controller
     public function add(Request $request)
     {
       
+           // تحقق من وجود اسم المجموعة
+    $request->validate([
+        'Name' => 'required|string', // إضافة التحقق
+        'Family_ID' => 'required|integer',
+        'Date_' => 'required|date',
+        'Amount' => 'required|integer',
+        'Status' => 'required|integer',
+        'Comment' => 'nullable|string|max:255',
+    ]);
+
        // print_r( $validatedData);die();
 
     // تقسيم Family_ID إلى مصفوفة وإزالة المسافات الزائدة
@@ -70,7 +80,8 @@ class GroupCashAidController extends Controller
             ->with('error', 'هناك أرقام مكررة في إدخال عائلات.');
     }
 
-        $group = new CashAidGroup(array('Name' =>  $request['Name']));
+     //   $group = new CashAidGroup(array(['Name' =>  $request['Name']]));
+        $group = new CashAidGroup(['Name' => $request['Name']]);
         $group->save();
 
 
@@ -82,14 +93,25 @@ class GroupCashAidController extends Controller
                 ->withInput(); // احتفظ بالمدخلات السابقة
             }
 
-            $aidData['Family_ID'] = $family_id;
-            $aidData['Date'] = $request['Date'];
-            $aidData['Amount'] = $request['Amount'];
-            $aidData['Status'] = $request['Status'];
-            $aidData['Comment'] = $request['Comment'];
-            $aidData['Group_Id'] = $group->ID;
+                    // إعداد بيانات المساعدة
+        $aidData = [
+            'Family_ID' => $family_id,
+            'Date_' => $request['Date_'], // تأكد من استخدام الاسم الصحيح
+            'Amount' => $request['Amount'], // تأكد من أن القيمة ليست فارغة
+            'Status' => $request['Status'], // استخدام الحالة المحددة
+            'Comment' => $request['Comment'],
+            'Group_Id' => $group->ID, // تعيين ID المجموعة
+        ];
+
+            // $aidData['Family_ID'] = $family_id;
+            // $aidData['Date_'] = $request['Date_'];
+            // $aidData['Amount'] = $request['Amount'];
+            // $aidData['Status'] = $request['Status'];
+            // $aidData['Comment'] = $request['Comment'];
+            // $aidData['Group_Id'] = $group->ID;
              // إنشاء كائن جديد مع التحقق من الصحة
             $cashAid = new CashAid($aidData);
+          //  dd($aidData);
             $cashAid->save();
         }
        

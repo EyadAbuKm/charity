@@ -63,16 +63,7 @@
             </div>  
         </div>
 
-        {{-- <div class="form-group">  
-            <label for="Group_Id">اسم المجموعة</label>  
-            <select name="Group_Id" id="Group_Id" required class="form-control" tabindex="5">  
-                <option value="" disabled selected>اختيار المجموعة</option>  
-                @foreach ($MaterialAidGroupNames as $MaterialAidGroupName)  
-                    <option value="{{ $MaterialAidGroupName->ID }}">{{ $MaterialAidGroupName->Name }}</option>  
-                @endforeach  
-            </select>  
-        </div> --}}
-
+        
         <label for="comment">اسم المجموعة</label>  
         <input type="text" name="Name" placeholder="اسم المجموعة" class="form-control" tabindex="5">  
 

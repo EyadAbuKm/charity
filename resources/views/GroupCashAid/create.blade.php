@@ -37,62 +37,36 @@
         <br>  
 
         <label for="date">التاريخ</label>  
-        <input type="date" name="Date" value="{{ date('Y-m-d') }}" required class="form-control" style="text-align: right;" tabindex="2">  
+        <input type="date" name="Date_" value="{{ date('Y-m-d') }}" required class="form-control" style="text-align: right;" tabindex="2">  
         <br>  
 
-        {{-- <label for="Type_Of_Aid">نوع الدعم</label>  
-        <select name="Type_Of_Aid" id="Type_Of_Aid" required class="form-control" tabindex="3">  
-            <option value="" disabled selected>اختيار نوع الدعم</option>  
-            @foreach ($TypeOfMaterialAids as $TypeOfMaterialAid)  
-                <option value="{{ $TypeOfMaterialAid->ID }}">{{ $TypeOfMaterialAid->Name }}</option>  
-            @endforeach  
-        </select>  
-        <br>   --}}
 
-        {{-- <label for="amount">القيمة المالية للدعم</label>  
-        <input type="number" name="Amount" placeholder="القيمة المالية" class="form-control">  
-        <br>   --}}
 
         <div class="form-group row">  
             <label for="Amount" class="col-sm-2 col-form-label text-right">مبلغ الدعم النقدي</label>  
             <div class="col-sm-10">  
                 <input type="text" id="Amount" name="Amount" class="form-control"  value="0"
-                oninput="formatNumber(this)"  tabindex="4">    
+                oninput="formatNumber(this)"  tabindex="3">    
             <!-- حقل مخفي لتخزين القيمة الفعلية المبلغ بدون تنسيق -->
             <input type="hidden" id="RawAmount" name="Amount">  
             </div>  
         </div>
 
-        {{-- <div class="form-group">  
-            <label for="Group_Id">اسم المجموعة</label>  
-            <select name="Group_Id" id="Group_Id" required class="form-control" tabindex="5">  
-                <option value="" disabled selected>اختيار المجموعة</option>  
-                @foreach ($MaterialAidGroupNames as $MaterialAidGroupName)  
-                    <option value="{{ $MaterialAidGroupName->ID }}">{{ $MaterialAidGroupName->Name }}</option>  
-                @endforeach  
-            </select>  
-        </div> --}}
-
-        <label for="comment">اسم المجموعة</label>  
-        <input type="text" name="Name" placeholder="اسم المجموعة" class="form-control" tabindex="5">  
+        <label for="Name">اسم المجموعة</label>  
+        <input type="text" name="Name" placeholder="اسم المجموعة" class="form-control" tabindex="4"> 
 
         <label for="Status">الحالة</label>  
         <select name="Status" id="Status" required class="form-control">  
-            {{-- <option value="" disabled selected>اختيار الحالة</option>    --}}
-            <option value="1" selected >مُعلّق</option>   
-            {{-- <option value="2">موافق</option>  
-            <option value="3">تسليم</option>      --}}
-        </select>  
-        {{-- <input type="hidden" name="Status" value="1" required> --}}
-        
+            <option value="1" selected>مُعلّق</option>   
+        </select>
 
         <label for="comment">ملاحظات</label>  
-        <input type="text" name="Comment" placeholder="ملاحظات" class="form-control" tabindex="6">  
+        <input type="text" name="Comment" placeholder="ملاحظات" class="form-control" tabindex="5">  
         <br>  
 
         <div class="d-flex justify-content-between">   
-            <button type="submit" class="btn btn-primary" style="width: 30%;" tabindex="7">إرسال</button>  
-            <button type="reset" class="btn btn-secondary" style="width: 30%;" tabindex="8">إعادة تعيين</button>   
+            <button type="submit" class="btn btn-primary" style="width: 30%;" tabindex="6">إرسال</button>  
+            <button type="reset" class="btn btn-secondary" style="width: 30%;" tabindex="7">إعادة تعيين</button>   
         </div>  
     </form>  
 </div>  
