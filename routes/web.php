@@ -16,6 +16,7 @@ use app\Models\SyrianGovernorate;
 use App\Models\Donor;
 use App\Http\Controllers\AidController;
 use App\Http\Controllers\GroupMaterialAidController;  
+use App\Http\Controllers\GroupCashAidController;
 use App\Http\Controllers\GroupMaterialAidNameController;  
 
 
@@ -154,12 +155,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('GroupMaterialAid/create', [GroupMaterialAidController::class, 'create'])->name('GroupMaterialAid.create');  
     Route::post('GroupMaterialAid/add', [GroupMaterialAidController::class, 'add'])->name('GroupMaterialAid.add');
-
     Route::get('GroupMaterialAid/index', [GroupMaterialAidController::class, 'index'])->name('GroupMaterialAid.index');
-
     Route::get('GroupMaterialAid/index2', [GroupMaterialAidController::class, 'index2'])->name('GroupMaterialAid.index2');
 
     
+    Route::get('GroupCashAid/create', [GroupCashAidController::class, 'create'])->name('GroupCashAid.create');  
+    Route::post('GroupCashAid/add', [GroupCashAidController::class, 'add'])->name('GroupCashAid.add');
+    Route::get('GroupCashAid/index', [GroupCashAidController::class, 'index'])->name('GroupCashAid.index');
+    Route::get('GroupCashAid/index2', [GroupCashAidController::class, 'index2'])->name('GroupCashAid.index2');
+
 //Route::post('GroupMaterialAid/store', [GroupMaterialAidController::class, 'store'])->name('GroupMaterialAid.store');
 
 // Route::get('/MaterialAidGroupName/create', [GroupMaterialAidNameController::class, 'create'])->name('MaterialAidGroupName.create');  

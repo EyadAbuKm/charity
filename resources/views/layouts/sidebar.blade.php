@@ -60,6 +60,29 @@
             </li>
 
 
+            <li>
+              <a class="sidenav-item-link" href= "{{ route('GroupCashAid.create') }}" class="btn" target="_blank">
+                <i class="mdi mdi-account-group"></i>
+                <span class="nav-text">إضافة أرقام الدعم النقدي الجماعي</span>
+              </a>
+            </li>
+
+            <li>
+              <a class="sidenav-item-link" href= "{{ route('GroupCashAid.index') }}" class="btn" target="_blank">
+                <i class="mdi mdi-account-group"></i>
+                <span class="nav-text">الدعم النقدي الجماعي/موافقة</span>
+              </a>
+            </li>
+
+
+            <li>
+              <a class="sidenav-item-link" href= "{{ route('GroupCashAid.index2') }}" class="btn" target="_blank">
+                <i class="mdi mdi-account-group"></i>
+                <span class="nav-text">الدعم النقدي الجماعي/تسليم</span>
+              </a>
+            </li>
+
+
 
             <li>
               <a class="sidenav-item-link" href= "{{ route('GroupMaterialAid.create') }}" class="btn" target="_blank">
