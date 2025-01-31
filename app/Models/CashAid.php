@@ -18,7 +18,7 @@ class CashAid extends Model
     }  
     
 
-    public function CashAidGroup()
+    public function cashAidGroup()
     {
         return $this->belongsTo(CashAidGroup::class, 'Group_Id', 'ID');
     }

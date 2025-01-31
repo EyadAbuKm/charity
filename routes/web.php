@@ -175,6 +175,9 @@ Route::middleware(['auth'])->group(function () {
 // لتحديث الحالة في جدول mateial Aid
 Route::post('/update-aid-status', [GroupMaterialAidController::class, 'updateAidStatus']);
 
+// لتحديث الحالة في جدول Cash Aid
+Route::post('/update-aid-status', [GroupCashAidController::class, 'updateAidStatus']);
+
 });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');

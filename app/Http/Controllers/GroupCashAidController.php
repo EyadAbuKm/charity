@@ -14,7 +14,7 @@ class GroupCashAidController extends Controller
     public function index2()
     {
         // Retrieve all Cash Aid records
-        $cashAids = CashAid::with(['family', 'cashAids'])
+        $cashAids = CashAid::with(['family'])
                                     ->whereNotNull('Group_Id')
                                     ->whereIn('Status', [2, 3])
                                     ->orderBy('ID','desc')
@@ -29,7 +29,7 @@ class GroupCashAidController extends Controller
     public function index()
     {
         // جلب البيانات مع العلاقات المرتبطة
-        $cashAids = CashAid::with(['family', 'cashAids'])
+        $cashAids = CashAid::with(['family'])
         ->whereNotNull('Group_Id')
         ->orderBy('ID','desc')
         ->get()
@@ -44,25 +44,26 @@ class GroupCashAidController extends Controller
         // Retrieve all available families  
         $families = Family::all();  
 
-
-        $GroupCashAid = CashAidGroup ::all();
+        $cashAidGroup = CashAidGroup ::all();
 
         // Return the view with families and types of material aid  
-        return view('GroupCashAid.create', compact('families', 'GroupCashAid'));  
+        return view('GroupCashAid.create', compact('families','cashAidGroup'));  
     }  
 
     public function add(Request $request)
     {
+       //dd($request->all());
+
       
            // تحقق من وجود اسم المجموعة
-    $request->validate([
-        'Name' => 'required|string', // إضافة التحقق
-        'Family_ID' => 'required|integer',
-        'Date_' => 'required|date',
-        'Amount' => 'required|integer',
-        'Status' => 'required|integer',
-        'Comment' => 'nullable|string|max:255',
-    ]);
+    // $request->validate([
+    //    'Name' => 'required|string', 
+    //     'Family_ID' => 'required|integer',
+    //     'Date_' => 'required|date',
+    //     'Amount' => 'required|integer',
+    //     'Status' => 'required|integer',
+    //     'Comment' => 'nullable|string|max:255',
+    // ]);
 
        // print_r( $validatedData);die();
 
@@ -94,31 +95,28 @@ class GroupCashAidController extends Controller
             }
 
                     // إعداد بيانات المساعدة
-        $aidData = [
-            'Family_ID' => $family_id,
-            'Date_' => $request['Date_'], // تأكد من استخدام الاسم الصحيح
-            'Amount' => $request['Amount'], // تأكد من أن القيمة ليست فارغة
-            'Status' => $request['Status'], // استخدام الحالة المحددة
-            'Comment' => $request['Comment'],
-            'Group_Id' => $group->ID, // تعيين ID المجموعة
-        ];
 
-            // $aidData['Family_ID'] = $family_id;
-            // $aidData['Date_'] = $request['Date_'];
-            // $aidData['Amount'] = $request['Amount'];
-            // $aidData['Status'] = $request['Status'];
-            // $aidData['Comment'] = $request['Comment'];
-            // $aidData['Group_Id'] = $group->ID;
+            $aidData['Family_ID'] = $family_id;
+            $aidData['Date_'] = $request['Date_'];
+            $aidData['Amount'] = $request['Amount'];
+            $aidData['Status'] = $request['Status'];
+            $aidData['Comment'] = $request['Comment'];
+            $aidData['Group_Id'] = $group->ID;
              // إنشاء كائن جديد مع التحقق من الصحة
             $cashAid = new CashAid($aidData);
-          //  dd($aidData);
+    
+            // Debugging: Check what data is being submitted
+            // dd($cashAid->all());
+            
             $cashAid->save();
         }
        
-
+      //  return back()->with('success', 'Cash Aid created successfully!');
         return redirect()->route('GroupCashAid.index')->with('success', 'Cash Aid created successfully!');  
+   
     }
 
+   
     public function updateAidStatus(Request $request)
 {
     $request->validate([

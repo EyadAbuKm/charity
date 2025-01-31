@@ -60,7 +60,7 @@
         <input type="text" name="Name" placeholder="اسم المجموعة" class="form-control" tabindex="5">  
 
 
-        <label for="Status">الحالة</label>  
+        {{-- <label for="Status">الحالة</label>   --}}
         <select name="Status" id="Status" required class="form-control" style="display: none;">  ٍ
             <option value="1" selected >مُعلّق</option>   
         </select>   
