@@ -33,9 +33,6 @@
         <textarea name="Family_ID" id="Family_ID" rows="5" required class="form-control" tabindex="1"></textarea>  
         <br>
         
-        
-        <br>  
-
         <label for="date">التاريخ</label>  
         <input type="date" name="Date" value="{{ date('Y-m-d') }}" required class="form-control" style="text-align: right;" tabindex="2">  
         <br>  
@@ -49,10 +46,6 @@
         </select>  
         <br>  
 
-        {{-- <label for="amount">القيمة المالية للدعم</label>  
-        <input type="number" name="Amount" placeholder="القيمة المالية" class="form-control">  
-        <br>   --}}
-
         <div class="form-group row">  
             <label for="Amount" class="col-sm-2 col-form-label text-right">القيمة المالية للدعم</label>  
             <div class="col-sm-10">  
@@ -63,19 +56,14 @@
             </div>  
         </div>
 
-        
         <label for="comment">اسم المجموعة</label>  
         <input type="text" name="Name" placeholder="اسم المجموعة" class="form-control" tabindex="5">  
 
+
         <label for="Status">الحالة</label>  
-        <select name="Status" id="Status" required class="form-control">  
-            {{-- <option value="" disabled selected>اختيار الحالة</option>    --}}
+        <select name="Status" id="Status" required class="form-control" style="display: none;">  ٍ
             <option value="1" selected >مُعلّق</option>   
-            {{-- <option value="2">موافق</option>  
-            <option value="3">تسليم</option>      --}}
-        </select>  
-        {{-- <input type="hidden" name="Status" value="1" required> --}}
-        
+        </select>   
 
         <label for="comment">ملاحظات</label>  
         <input type="text" name="Comment" placeholder="ملاحظات" class="form-control" tabindex="6">  

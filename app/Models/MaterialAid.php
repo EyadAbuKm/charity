@@ -19,7 +19,7 @@ class MaterialAid extends Model
     public $timestamps = false;  
 
     // Define which fields are mass-assignable
-    protected $fillable = ['Family_ID', 'Date', 'Type_Of_Aid', 'Amount', 'Comment'];  
+    protected $fillable = ['Family_ID', 'Date', 'Type_Of_Aid', 'Amount','Group_Id','Status', 'Comment'];  
 
     // Define the inverse relationship with TypeOfMaterialAid
     public function typeOfMaterialAid()
@@ -31,5 +31,11 @@ class MaterialAid extends Model
     {
         return $this->belongsTo(Family::class, 'Family_ID', 'Family_ID');
     }  
+
+
+    public function materialAids()  
+    {  
+        return $this->belongsTo(MaterialAidGroupName::class, 'Group_Id', 'ID'); 
+    } 
 
 }

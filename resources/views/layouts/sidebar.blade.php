@@ -59,6 +59,11 @@
               </a>
             </li>
 
+            <li class="section-title">
+              <h4 style="color: white; border-bottom: 2px solid white; padding-bottom: 5px;">الدعم الجماعي النقدي</h4>
+
+            </li>
+
 
             <li>
               <a class="sidenav-item-link" href= "{{ route('GroupCashAid.create') }}" class="btn" target="_blank">
@@ -82,7 +87,10 @@
               </a>
             </li>
 
+            <li class="section-title">
+              <h4 style="color: white; border-bottom: 2px solid white; padding-bottom: 5px;">الدعم الجماعي العيني</h4>
 
+            </li>
 
             <li>
               <a class="sidenav-item-link" href= "{{ route('GroupMaterialAid.create') }}" class="btn" target="_blank">

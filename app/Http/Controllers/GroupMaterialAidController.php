@@ -94,6 +94,7 @@ class GroupMaterialAidController extends Controller
             $aidData['Group_Id'] = $group->ID;
              // إنشاء كائن جديد مع التحقق من الصحة
             $materialAid = new MaterialAid($aidData);
+           // dd($aidData);
             $materialAid->save();
         }
        

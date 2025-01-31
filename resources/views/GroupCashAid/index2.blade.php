@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'تسليم/مجموعات المساعدات العينية')
+@section('title', 'تسليم/مجموعات المساعدات النقدية')
 
 @section('content')  
 
