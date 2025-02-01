@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 
-@section('title', 'الدعم')
+@section('title', 'إضافة دعم لأسرة')
 
 @section('content')
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'جميع بيانات عائلة')
+@section('title', 'معلومات أسرة محددة')
 
 @section('content')
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'إضافة متبرع')
+@section('title', 'تسجيل تبرع')
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/move.css') }}"> 
