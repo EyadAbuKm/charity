@@ -60,6 +60,7 @@
             <option value="1" selected>مُعلّق</option>   
         </select>
 
+        
         <label for="comment">ملاحظات</label>  
         <input type="text" name="Comment" placeholder="ملاحظات" class="form-control" tabindex="5">  
         <br>  
