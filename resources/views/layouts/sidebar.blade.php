@@ -116,16 +116,6 @@
 
 
 
-
-            {{-- <li>
-              <a class="sidenav-item-link" href="{{ route('aid.create', ['family_id' => 0]) }}">
-                  <i class="mdi mdi-plus"></i>
-                  <span class="nav-text">إضافة مساعدة</span>
-              </a>
-          </li> --}}
-
-
-
             <li class="section-title">
               <h4 style="color: white; border-bottom: 2px solid white; padding-bottom: 5px;">التقارير</h4>
 

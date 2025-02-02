@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'تسليم/مجموعات المساعدات النقدية')
+@section('title', 'تسليم/مجموعات المساعدات العينية')
 
 @section('content')  
 
@@ -126,42 +126,13 @@
 <script src="{{ asset('js/formatNumberTable.js') }}"></script> 
 
 @section('customJs')  
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Handle "عرض التفاصيل" button click
-            const buttons = document.querySelectorAll('.show-details');
-            buttons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const groupId = this.getAttribute('data-group-id');
-                    const detailsRow = document.querySelector(`.details-row[data-group-id="${groupId}"]`);
-                    
-                    // Toggle the visibility of the details row
-                    if (detailsRow.style.display === 'none') {
-                        detailsRow.style.display = 'table-row';
-                        this.textContent = 'إخفاء التفاصيل';
-                    } else {    
-                        detailsRow.style.display = 'none';
-                        this.textContent = 'عرض التفاصيل';
-                    }
-                });
-            });
-        });
-    </script>
 
+{{-- لعرض تفاصيل المساعدات الجماعية  --}}
+ <script src="{{ asset('js/DisplayDetailsOfGroupAid.js') }}"></script>
+       
 
-    {{-- وظيفة البحث في الجدول --}}
-    <script>
-        $(document).ready(function() {
-            $('input[id^="searchInput-"]').on('keyup', function() {
-                var groupId = $(this).attr('id').split('-')[1]; // الحصول على groupId من id المدخل
-                var value = $(this).val().toLowerCase();
-                // تصفية الصفوف في الجدول الخاص بالمجموعة
-                $(`.details-row[data-group-id="${groupId}"] table tbody tr`).filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                });
-            });
-        });
-    </script>
+ {{-- البحث ضمن المجموعة --}}
+<script src="{{ asset('js/SearchInGroup.js') }}"></script>
 
 
 

@@ -129,42 +129,14 @@
 <script src="{{ asset('js/formatNumberTable.js') }}"></script> 
 
 @section('customJs')  
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Handle "عرض التفاصيل" button click
-            const buttons = document.querySelectorAll('.show-details');
-            buttons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const groupId = this.getAttribute('data-group-id');
-                    const detailsRow = document.querySelector(`.details-row[data-group-id="${groupId}"]`);
-                    
-                    // Toggle the visibility of the details row
-                    if (detailsRow.style.display === 'none') {
-                        detailsRow.style.display = 'table-row';
-                        this.textContent = 'إخفاء التفاصيل';
-                    } else {    
-                        detailsRow.style.display = 'none';
-                        this.textContent = 'عرض التفاصيل';
-                    }
-                });
-            });
-        });
-    </script>
 
 
-    {{-- وظيفة البحث في الجدول --}}
-    <script>
-        $(document).ready(function() {
-            $('input[id^="searchInput-"]').on('keyup', function() {
-                var groupId = $(this).attr('id').split('-')[1]; // الحصول على groupId من id المدخل
-                var value = $(this).val().toLowerCase();
-                // تصفية الصفوف في الجدول الخاص بالمجموعة
-                $(`.details-row[data-group-id="${groupId}"] table tbody tr`).filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                });
-            });
-        });
-    </script>
+{{-- لعرض تفاصيل المساعدات الجماعية  --}}
+ <script src="{{ asset('js/DisplayDetailsOfGroupAid.js') }}"></script>
+
+ {{-- البحث ضمن المجموعة --}}
+ <script src="{{ asset('js/SearchInGroup.js') }}"></script>
+
 
 
 
@@ -233,80 +205,4 @@
     </script>
     
 
-{{-- 
-<script>
-$(document).on('click', '.action-button', function() {
-    var button = $(this);
-    var aidId = button.data('aid-id');
-    var currentStatus = button.data('status');
-
-    console.log('Aid ID:', aidId);
-    console.log('Current Status:', currentStatus);
-
-    var newStatus;
-    var buttonText;
-    var buttonColor;
-
-    if (currentStatus == 1) {
-        newStatus = 2;
-        buttonText = 'موافق';
-        buttonColor = 'btn-danger'; // اللون الأحمر
-    } 
-    else if (currentStatus == 2) {
-        newStatus = 3;
-        buttonText = 'تسليم';
-        buttonColor = 'btn-success'; // اللون الأخضر
-    } else if (currentStatus == 3) {
-        return; // لا تفعل شيئًا إذا كانت الحالة 3
-    }
-
-    // تحديث الزر
-    button.data('status', newStatus);
-    button.text(buttonText);
-    button.removeClass('btn-primary').addClass(buttonColor);
-
-    // تخزين الحالة في Local Storage
-    localStorage.setItem('aidStatus_' + aidId, newStatus);
-
-    // تنفيذ طلب AJAX لتحديث الحالة
-    $.ajax({
-        url: '/update-aid-status',
-        method: 'POST',
-        data: {
-            id: aidId,
-            status: newStatus,
-            _token: '{{ csrf_token() }}'
-        },
-        success: function(response) {
-            console.log('Status updated successfully:', response);
-        },
-        error: function(xhr) {
-            console.error('Error updating status:', xhr);
-            // إعادة الحالة القديمة إذا حدث خطأ
-            button.data('status', currentStatus);
-            button.text(currentStatus == 1 ? 'معلق' : (currentStatus == 2 ? 'موافق' : 'تسليم'));
-            button.removeClass(buttonColor).addClass('btn-primary');
-        }
-    });
-});
-
-// استرجاع الحالة من Local Storage عند تحميل الصفحة
-$(document).ready(function() {
-    $('.action-button').each(function() {
-        var button = $(this);
-        var aidId = button.data('aid-id');
-        var storedStatus = localStorage.getItem('aidStatus_' + aidId);
-
-        if (storedStatus) {
-            button.data('status', storedStatus);
-            if (storedStatus == 2) {
-                button.text('موافق').removeClass('btn-primary').addClass('btn-danger');
-            } else if (storedStatus == 3) {
-                button.text('تسليم').removeClass('btn-primary').addClass('btn-success');
-            }
-        }
-    });
-});
-</script>
- --}}
 @endsection
