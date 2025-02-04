@@ -3,63 +3,39 @@
 // تعديل حالة المساعدات الجماعية
 // من معلق إلى موافق
 
-    $(document).on('click', '.action-button', function() {
-        var button = $(this);
-        var aidId = button.data('aid-id');
-        var currentStatus = button.data('status');
-    
-        console.log('Aid ID:', aidId);
-        console.log('Current Status:', currentStatus);
-    
-        // تحقق من الحالة الحالية
-        if (currentStatus == 1) {
-            var newStatus = 2;
-            var buttonText = 'موافق';
-            var buttonColor = 'btn-danger'; // اللون الأحمر
-    
-            // تحديث الزر
-            button.data('status', newStatus);
-            button.text(buttonText);
-            button.removeClass('btn-primary').addClass(buttonColor);
-    
-            // تخزين الحالة في Local Storage
-            localStorage.setItem('aidStatus_' + aidId, newStatus);
-    
-            // تنفيذ طلب AJAX لتحديث الحالة
-            $.ajax({
-                url: '/update-aid-status',
-                method: 'POST',
-                data: {
-                    id: aidId,
-                    status: newStatus,
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    console.log('Status updated successfully:', response);
-                },
-                error: function(xhr) {
-                    console.error('Error updating status:', xhr);
-                    // إعادة الحالة القديمة إذا حدث خطأ
-                    button.data('status', currentStatus);
-                    button.text('معلق');
-                    button.removeClass(buttonColor).addClass('btn-primary');
-                }
-            });
-        }
-    });
-    
-    // استرجاع الحالة من Local Storage عند تحميل الصفحة
-    $(document).ready(function() {
-        $('.action-button').each(function() {
-            var button = $(this);
-            var aidId = button.data('aid-id');
-            var storedStatus = localStorage.getItem('aidStatus_' + aidId);
-    
-            if (storedStatus) {
-                button.data('status', storedStatus);
-                if (storedStatus == 2) {
-                    button.text('موافق').removeClass('btn-primary').addClass('btn-danger');
-                }
-            }
-        });
-    });
+$(document).ready(function() {  
+    // عندما يتم تحميل الصفحة، نبدأ بإعداد المستمع على الزر  
+    $('.action-button').on('click', function() {  
+        var aidId = $(this).data('aid-id'); // الحصول على ID المساعدة من البيانات المرتبطة بالزر  
+        var status = $(this).data('status'); // الحصول على الحالة الحالية من البيانات المرتبطة بالزر  
+        
+        // الاستمرار فقط إذا كانت الحالة 1  
+        if (status == 1) {  
+            $.ajax({  
+                url: '/update-aid-status', // تعديل عنوان URL حسب الضرورة  
+                method: 'POST',   // تحديد طريقة الطلب كـ POST  
+                data: {  
+                    id: aidId,  // تمرير ID المساعدة إلى الخادم  
+                    _token: '{{ csrf_token() }}' // تضمين توكن CSRF لأغراض الأمان  
+                },  
+                success: function(response) {  
+                    // هذا الجزء ينفذ عند نجاح الطلب  
+                    if (response.status === 'success') {  
+                        // تحديث نص الزر إلى "موافق"  
+                        $(this).text('موافق').data('status', 2); // تحديث البيانات المرتبطة  
+
+                        // تحديث نص الحقل "Status" في الصف لهذه المساعدة فقط  
+                        $(this).closest('tr').find('.status-text').text('موافق').css('color', 'red'); // تحديث نص الحالة                         
+                    }  
+                }.bind(this), // ربط 'this' للوصول إلى الزر داخل دالة النجاح  
+                error: function(xhr) {  
+                    // في حالة حدوث خطأ، يمكن طباعة رسالة خطأ  
+                    console.error('حدث خطأ:', xhr.responseText);  
+                }  
+            });  
+        } else {  
+            // إذا كانت الحالة ليست 1، تجاوز الطلب  
+            console.log('تمت الموافقة مُسبقاً');  
+        }  
+    });  
+});  

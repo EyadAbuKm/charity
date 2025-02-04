@@ -173,7 +173,7 @@ Route::middleware(['auth'])->group(function () {
 // Route::put('/GroupMaterialAid/{id}', [MaterialAidController::class, 'updateStatus']);
 
 // لتحديث الحالة في جدول mateial Aid
-Route::post('/update-aid-status', [GroupMaterialAidController::class, 'updateAidStatus']);
+//Route::post('/update-aid-status', [GroupMaterialAidController::class, 'updateAidStatus']);
 
 // لتحديث الحالة في جدول Cash Aid
 Route::post('/update-aid-status', [GroupCashAidController::class, 'updateAidStatus']);

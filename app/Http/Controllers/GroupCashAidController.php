@@ -117,23 +117,29 @@ class GroupCashAidController extends Controller
     }
 
    
-    public function updateAidStatus(Request $request)
-{
-    $request->validate([
-        'id' => 'required|integer',
-        'status' => 'required|integer',
-    ]);
+public function updateAidStatus(Request $request)  
+{  
+    $id = $request->input('id');  
 
-    $aid = CashAid::find($request->id);
-    
-    if ($aid) {
-        $aid->Status = $request->status;
-        $aid->save();
+    // Find the record by ID  
+    $record = CashAid::find($id);  
 
-        return response()->json(['success' => true]);
-    }
+    // Check if the record exists  
+    if ($record) {  
+        // Check the current status  
+        if ($record->Status == 1) {  
+            // Change status to 2  
+            $record->Status = 2;  
+            $record->save();  
+            return response()->json(['status' => 'success', 'message' => 'Status updated to موافق (2) successfully!']);  
+        } else if ($record->Status == 2) {  
+            // If status is already 2, return a different message  
+            return response()->json(['status' => 'info', 'message' => 'Status is already موافق (2).']);  
+        }  
+                }  
 
-    return response()->json(['success' => false], 404);
+    // Return a response if record not found  
+    return response()->json(['status' => 'error', 'message' => 'Record not found.']);  
 }
 
 
