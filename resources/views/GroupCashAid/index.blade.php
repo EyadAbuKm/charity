@@ -90,7 +90,7 @@
                                 <td>{{ $aid->Family_ID }}</td>
                                 <td>{{ $aid->family->Applicant_Name }}</td>
      
-                                <td>  
+                                <td class="status-text">  
                                     @if($aid->Status == 1)  
                                         معلق  
                                     @elseif($aid->Status == 2)  
@@ -181,11 +181,5 @@ $(document).ready(function() {
     });  
 });  
 </script>
-
-
-
-
-
-
 
 @endsection

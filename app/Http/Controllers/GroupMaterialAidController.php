@@ -102,24 +102,31 @@ class GroupMaterialAidController extends Controller
         return redirect()->route('GroupMaterialAid.index')->with('success', 'Material Aid created successfully!');  
     }
 
-    public function updateAidStatus(Request $request)
-{
-    $request->validate([
-        'id' => 'required|integer',
-        'status' => 'required|integer',
-    ]);
-
-    $aid = MaterialAid::find($request->id);
+    public function updateAidStatus(Request $request)  
+    {  
+        $id = $request->input('id');  
     
-    if ($aid) {
-        $aid->Status = $request->status;
-        $aid->save();
-
-        return response()->json(['success' => true]);
+        // Find the record by ID  
+        $record = MaterialAid::find($id);  
+    
+        // Check if the record exists  
+        if ($record) {  
+            // Check the current status  
+            if ($record->Status == 1) {  
+                // Change status to 2  
+                $record->Status = 2;  
+                $record->save();  
+                return response()->json(['status' => 'success', 'message' => 'Status updated to موافق (2) successfully!']);  
+            } else if ($record->Status == 2) {  
+                // If status is already 2, return a different message  
+                return response()->json(['status' => 'info', 'message' => 'Status is already موافق (2).']);  
+            }  
+                    }  
+    
+        // Return a response if record not found  
+        return response()->json(['status' => 'error', 'message' => 'Record not found.']);  
     }
-
-    return response()->json(['success' => false], 404);
-}
+    
 
 
 } 
