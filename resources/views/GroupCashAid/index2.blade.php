@@ -6,7 +6,7 @@
 
 <div class="card card-default">
     <div class="card-header" style="display: flex; justify-content: center;">
-        <h2>مجموعات المساعدات العينية/تسليم</h2>  
+        <h2>مجموعات المساعدات النقدية/تسليم</h2>  
     </div> 
 
 
@@ -83,34 +83,31 @@
                                 <td>{{ $aid->typeOfMaterialAid->Name ?? 'N/A' }}</td>
                                 <td class="amount" data-amount="{{ $aid->Amount }}">{{ $aid->Amount }}</td>
                                 <td>{{ $aid->Comment }}</td> --}}
-                                {{-- <td>
-                                    @if($aid->Status == 1)
-                                        معلق
-                                    @elseif($aid->Status == 2)
-                                    <span class="status-text" style="color: red;">موافق</span>
-                                    @else
-                                    <span class="status-text" style="color: green;">تسليم</span>                                    @endif
-                                </td> --}}
-                             <td>
-                                    
-                                <button class="btn btn-primary btn-sm action-button" data-aid-id="{{ $aid->ID }}" 
-                                                                                     data-status="{{ $aid->Status }}">
-                                    @if($aid->Status == 1)
-                                        معلق
-                                    @elseif($aid->Status == 2)
-                                        موافق
-                                    @elseif($aid->Status == 3)
-                                        تسليم
-                                    @endif
-                                </button>
-                                    
+                                
+                                <td class="status-text">  
+                                    @if($aid->Status == 2)  
+                                        موافق  
+                                    @elseif($aid->Status == 3)  
+                                        <span class="status-text" style="color: rgb(19, 219, 89);">تسليم</span>  
+                                    @endif  
+                                </td> 
+
+                            <td>     
+                                <button class="btn btn-primary btn-sm action-button"   
+                                        data-aid-id="{{ $aid->ID }}"   
+                                        data-status="{{ $aid->Status }}">  
+                                    @if($aid->Status == 2)  
+                                        موافق  
+                                    @elseif($aid->Status == 3)  
+                                        تسليم  
+                                    @endif  
+                                </button>     
                             </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    </td>
-                
+                </td>
             </tr>
             @endforeach
         </tbody>
@@ -139,77 +136,42 @@
 
 {{-- update status --}}
 <script>
-$(document).on('click', '.action-button', function() {
-    var button = $(this);
-    var aidId = button.data('aid-id');
-    var currentStatus = button.data('status');
-
-    console.log('Aid ID:', aidId);
-    console.log('Current Status:', currentStatus);
-
-    var newStatus;
-    var buttonText;
-    var buttonColor;
-
-    if (currentStatus == 1) {
-        newStatus = 2;
-        buttonText = 'موافق';
-        buttonColor = 'btn-danger'; // اللون الأحمر
-    } else if (currentStatus == 2) {
-        newStatus = 3;
-        buttonText = 'تسليم';
-        buttonColor = 'btn-success'; // اللون الأخضر
-    } else if (currentStatus == 3) {
-        return; // لا تفعل شيئًا إذا كانت الحالة 3
-    }
-
-    // تحديث الزر
-    button.data('status', newStatus);
-    button.text(buttonText);
-    button.removeClass('btn-primary').addClass(buttonColor);
-
-    // تخزين الحالة في Local Storage
-    localStorage.setItem('aidStatus_' + aidId, newStatus);
-
-    // تنفيذ طلب AJAX لتحديث الحالة
-    $.ajax({
-        url: '/update-aid-status',
-        method: 'POST',
-        data: {
-            id: aidId,
-            status: newStatus,
-            _token: '{{ csrf_token() }}'
-        },
-        success: function(response) {
-            console.log('Status updated successfully:', response);
-        },
-        error: function(xhr) {
-            console.error('Error updating status:', xhr);
-            // إعادة الحالة القديمة إذا حدث خطأ
-            button.data('status', currentStatus);
-            button.text(currentStatus == 1 ? 'معلق' : (currentStatus == 2 ? 'موافق' : 'تسليم'));
-            button.removeClass(buttonColor).addClass('btn-primary');
-        }
-    });
-});
-
-// استرجاع الحالة من Local Storage عند تحميل الصفحة
-$(document).ready(function() {
-    $('.action-button').each(function() {
-        var button = $(this);
-        var aidId = button.data('aid-id');
-        var storedStatus = localStorage.getItem('aidStatus_' + aidId);
-
-        if (storedStatus) {
-            button.data('status', storedStatus);
-            if (storedStatus == 2) {
-                button.text('موافق').removeClass('btn-primary').addClass('btn-danger');
-            } else if (storedStatus == 3) {
-                button.text('تسليم').removeClass('btn-primary').addClass('btn-success');
-            }
-        }
-    });
-});
-</script>
-
+    $(document).ready(function() {  
+        // عندما يتم تحميل الصفحة، نبدأ بإعداد المستمع على الزر  
+        $('.action-button').on('click', function() {  
+            var aidId = $(this).data('aid-id'); // الحصول على ID المساعدة من البيانات المرتبطة بالزر  
+            var status = $(this).data('status'); // الحصول على الحالة الحالية من البيانات المرتبطة بالزر  
+            
+            // الاستمرار فقط إذا كانت الحالة 1  
+            if (status == 2) {  
+                $.ajax({  
+                    url: '/Fianl-update-aid-status', // تعديل عنوان URL حسب الضرورة  
+                    method: 'POST',   // تحديد طريقة الطلب كـ POST  
+                    data: {  
+                        id: aidId,  // تمرير ID المساعدة إلى الخادم  
+                        _token: '{{ csrf_token() }}' // تضمين توكن CSRF لأغراض الأمان  
+                    },  
+                    success: function(response) {  
+                        // هذا الجزء ينفذ عند نجاح الطلب  
+                        if (response.status === 'success') {  
+                            // تحديث نص الزر إلى "موافق"  
+                            $(this).text('تسليم').data('status', 3); // تحديث البيانات المرتبطة  
+    
+                            // تحديث نص الحقل "Status" في الصف لهذه المساعدة فقط  
+                            $(this).closest('tr').find('.status-text').text('تسليم').css('color', 'green'); // تحديث نص الحالة                         
+                        }  
+                    }.bind(this), // ربط 'this' للوصول إلى الزر داخل دالة النجاح  
+                    error: function(xhr) {  
+                        // في حالة حدوث خطأ، يمكن طباعة رسالة خطأ  
+                        console.error('حدث خطأ:', xhr.responseText);  
+                    }  
+                });  
+            } else {  
+                // إذا كانت الحالة ليست 1، تجاوز الطلب  
+                console.log('تمت الموافقة مُسبقاً');  
+            }  
+        });  
+    });  
+    </script>
+ 
 @endsection

@@ -116,7 +116,7 @@ class GroupCashAidController extends Controller
    
     }
 
-   
+// to move from Pending Status to Approve Status   
 public function updateAidStatus(Request $request)  
 {  
     $id = $request->input('id');  
@@ -142,6 +142,30 @@ public function updateAidStatus(Request $request)
     return response()->json(['status' => 'error', 'message' => 'Record not found.']);  
 }
 
+    public function FinalUpdateAidStatus(Request $request)  
+    {  
+        $id = $request->input('id');  
+
+        // Find the record by ID  
+        $record = CashAid::find($id);  
+
+        // Check if the record exists  
+        if ($record) {  
+            // Check the current status  
+            if ($record->Status == 2) {  
+                // Change status to 3 
+                $record->Status = 3;  
+                $record->save();  
+                return response()->json(['status' => 'success', 'message' => 'Status updated to موافق (3) successfully!']);  
+            } else if ($record->Status == 3) {  
+                // If status is already 3, return a different message  
+                return response()->json(['status' => 'info', 'message' => 'Status is already موافق (3).']);  
+            }  
+                    }  
+
+        // Return a response if record not found  
+        return response()->json(['status' => 'error', 'message' => 'Record not found.']);  
+    }
 
 } 
 

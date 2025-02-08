@@ -52,7 +52,12 @@
                 <td>{{ $group->first()->Comment ?? 'N/A' }}</td> 
                 <td>{{ $group->count() }}</td>
                 <td>{{ $group->where('Status', '!=', 1)->count() }}</td>
-                <td style="color: red;">{{ $group->where('Status', '=', 1)->count() }}</td>
+                {{-- <td style="color: red;">{{ $group->where('Status', '=', 1)->count() }}</td> --}}
+
+                {{-- يظهر اللون الأحمر إن كانت القيمة أكبر من صفر --}}
+                <td style="{{ $group->where('Status', '=', 1)->count() > 0 ? 'color: red;' : '' }}">  
+                {{ $group->where('Status', '=', 1)->count() }}  
+                </td>
 
                 <td>
                     <button class="btn btn-primary btn-sm show-details" data-group-id="{{ $groupId }}" style="margin-bottom: 5%;margin-top: 20%">
@@ -94,7 +99,9 @@
                                     @if($aid->Status == 1)  
                                         معلق  
                                     @elseif($aid->Status == 2)  
-                                        <span class="status-text" style="color: red;">موافق</span>  
+                                        <span class="status-text" style="color: red;">موافق</span>
+                                    @elseif($aid->Status == 3)  
+                                    <span class="status-text" style="color: rgb(20, 205, 23);">تسليم</span>
                                     @endif  
                                 </td>  
                                 <td>  
@@ -104,7 +111,9 @@
                                         @if($aid->Status == 1)  
                                             معلق  
                                         @elseif($aid->Status == 2)  
-                                            موافق  
+                                            موافق 
+                                        @elseif($aid->Status == 3)  
+                                            تسليم  
                                         @endif  
                                     </button>  
                                 </td>  
@@ -167,7 +176,14 @@ $(document).ready(function() {
 
                         // تحديث نص الحقل "Status" في الصف لهذه المساعدة فقط  
                         $(this).closest('tr').find('.status-text').text('موافق').css('color', 'red'); // تحديث نص الحالة                         
-                    }  
+                    } 
+                   
+                    else if (response.newStatus === 3) {  
+                            $(this).text('تسليم').data('status', 3);
+                            $(this).text('تسليم').data('status', 3);  
+                            $(this).closest('tr').find('.status-text').text('تسليم'); // تحديث نص الحالة إلى "تسليم"  
+                        }  
+
                 }.bind(this), // ربط 'this' للوصول إلى الزر داخل دالة النجاح  
                 error: function(xhr) {  
                     // في حالة حدوث خطأ، يمكن طباعة رسالة خطأ  

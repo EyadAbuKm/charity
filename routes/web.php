@@ -150,9 +150,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/aid/add_material', [MaterialAidController::class, 'add'])->name('aid.add_material');
 
 
-
-
-
     Route::get('GroupMaterialAid/create', [GroupMaterialAidController::class, 'create'])->name('GroupMaterialAid.create');  
     Route::post('GroupMaterialAid/add', [GroupMaterialAidController::class, 'add'])->name('GroupMaterialAid.add');
     Route::get('GroupMaterialAid/index', [GroupMaterialAidController::class, 'index'])->name('GroupMaterialAid.index');
@@ -170,13 +167,15 @@ Route::middleware(['auth'])->group(function () {
 // Route::post('/MaterialAidGroupName/add', [GroupMaterialAidNameController::class, 'add'])->name('MaterialAidGroupName.add');
 
 
-// Route::put('/GroupMaterialAid/{id}', [MaterialAidController::class, 'updateStatus']);
+ Route::put('/GroupMaterialAid/{id}', [MaterialAidController::class, 'updateStatus']);
 
 // لتحديث الحالة في جدول mateial Aid
 Route::post('/update-material-aid-status', [GroupMaterialAidController::class, 'updateAidStatus']);
+Route::post('/Fianl-update-material-aid-status', [GroupMaterialAidController::class, 'FinalUpdateAidStatus']);
 
 // لتحديث الحالة في جدول Cash Aid
 Route::post('/update-aid-status', [GroupCashAidController::class, 'updateAidStatus']);
+Route::post('/Fianl-update-aid-status', [GroupCashAidController::class, 'FinalUpdateAidStatus']);
 
 });
 
