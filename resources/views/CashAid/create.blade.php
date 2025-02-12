@@ -1,4 +1,4 @@
-@extends('layouts.app')
+    @extends('layouts.app')
 
 @section('title', 'إضافة مساعدة مالية')
 
@@ -36,6 +36,10 @@
             <!-- حقل مخفي لتخزين القيمة الفعلية المبلغ بدون تنسيق -->
             <input type="hidden" id="RawAmount" name="Amount">  
              
+            <div>
+                <input type="text" id="status" name="Status" value="3"
+                    style="display:none;">
+            </div>
 <br>  
             <label for="comment">ملاحظات</label>  
             <input type="text" id="comment" name="Comment" placeholder="Comment">  

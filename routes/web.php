@@ -72,6 +72,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/CashAid/index', [CashAidController::class,'index'])->name('CashAid.index');
     Route::get('/CashAid/details/{family_id}', [CashAidController::class, 'details'])->name('CashAid.details');
 
+
+    // صياغة لتبسيط لعمل مجموعة للتوابع التي لها نفس controller 
+    // Route::controller(CashAidController::class)->prefix('CashAid')->name('CashAid.')->group(function () {  
+    //     Route::get('/create/{family_id}', 'create')->name('create');  
+    //     Route::post('/add', 'add')->name('add');  
+    //     Route::get('/index', 'index')->name('index');  
+    //     Route::get('/details/{family_id}', 'details')->name('details');  
+    // });
+
     // Editing Cash Aid
     Route::get('/CashAid/edit/{ID}', [CashAidController::class, 'edit'])->name('CashAid.edit');
     Route::post('/CashAid/edit/{ID}', [CashAidController::class, 'update'])->name('CashAid.update');  
@@ -98,11 +107,9 @@ Route::middleware(['auth'])->group(function () {
     // Check Duplicate Family_ID
     Route::post('/check-family-id', [FamilyController::class, 'checkFamilyID'])->name('check.Family_ID');
 
-
-
     Route::prefix('visits')->group(function () {  
-        Route::get('create', [VisitController::class, 'create'])->name('visits.create');  
-        Route::post('add', [VisitController::class, 'add'])->name('visits.add');  
+    Route::get('create', [VisitController::class, 'create'])->name('visits.create');  
+    Route::post('add', [VisitController::class, 'add'])->name('visits.add');  
         
     });
 

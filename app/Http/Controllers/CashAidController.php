@@ -12,7 +12,7 @@ class CashAidController extends Controller
     public function index()  
     {  
    // Retrieve all CashAid records, including their related Family data, using Eloquent's 'with' method.
-          $cashAids = CashAid::with('family')->get();
+          $cashAids = CashAid::with('family')->where('status', 3)->get();
     // Pass the retrieved data to the 'CashAid.index' view and make it accessible using the variable 'cashAids'.
         return view('CashAid.index', compact('cashAids'));  
     }
@@ -44,6 +44,7 @@ class CashAidController extends Controller
         'Family_ID' => 'required|integer',  
         'Date_' => 'required|date',
         'Amount' => 'required|integer',  
+        'Status' =>  'required|integer',
         'Comment' => 'nullable|string',  
             ]);
        

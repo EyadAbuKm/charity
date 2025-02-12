@@ -36,10 +36,15 @@
         </select>  
         <br>
     
-        <label for="amount">الكمية</label>
-        <input type="number" name="Amount" placeholder="َQTY" class="form-control">
+        <label for="amount">القيمة المالية</label>
+        <input type="number" name="Amount" placeholder="َالقيمة المالية" class="form-control">
         <br>
     
+        <div>
+            <input type="text" id="status" name="Status" value="3"
+                style="display:none;">
+        </div>
+
         <label for="comment">ملاحظات</label>
         <input type="text" name="Comment" placeholder="Comment" class="form-control">
         <br>

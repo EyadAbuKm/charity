@@ -13,7 +13,7 @@ class MaterialAidController extends Controller
     {
     // استرداد كافةالسجلات مع تحميل العلاقات المرتبطة بها  
 
-        $materialAids = MaterialAid::with(['family', 'typeOfMaterialAid'])->get();  
+        $materialAids = MaterialAid::with(['family', 'typeOfMaterialAid'])->where('status', 3)->get();  
         return view('MaterialAid.index', compact('materialAids'));
     }
 
@@ -46,6 +46,7 @@ class MaterialAidController extends Controller
             'Date' => 'required|date',
             'Type_Of_Aid' => 'required|integer',
             'Amount' => 'nullable|integer',
+            'Status' => 'required|integer',
             'Comment' => 'nullable|string',
         ]);
 

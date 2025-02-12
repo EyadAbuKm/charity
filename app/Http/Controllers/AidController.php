@@ -27,8 +27,8 @@ public function index(Request $request)
     } 
 
 
-    $cashAids = CashAid::where("Family_ID", $family->Family_ID)->get();  
-    $materialAids = MaterialAid::where("Family_ID", $family->Family_ID)->get();  
+    $cashAids = CashAid::where("Family_ID", $family->Family_ID)->where('status', 3)->get();  
+    $materialAids = MaterialAid::where("Family_ID", $family->Family_ID)->where('status', 3)->get();  
     $TypeOfMaterialAids = TypeOfMaterialAid::all();
     // Return the combined view with family, family members, and cash aids  
     return view('aid.index', compact('family',  'cashAids','materialAids','TypeOfMaterialAids'));  
@@ -60,11 +60,12 @@ public function add(Request $request)
     'Comment' => 'nullable|string',  
   //  'Date' => 'required|date',
         ]);
-   
+
+
+
     // إنشاء كائن جديد مع التحقق من الصحة
     $cash = new CashAid($validatedData);
     $cash->save();
-
     
     // Retrieve the related Family record
     $family = $cash->family; // This will fetch the Family record based on Family_ID
@@ -74,10 +75,8 @@ public function add(Request $request)
 
 
     return redirect()->route('aid.index')->with('success', "تم تسجيل الدعم بنجاح للعائلة رقم: $cash->Family_ID , $family->Applicant_Name, : مبلغ $cash->Amount. شكرا.");
- 
-    
+  
 }
-
 
 }
 

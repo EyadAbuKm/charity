@@ -222,8 +222,8 @@ public function full_details(Request $request)
         'workStatus'  
     ])->get();  
 
-    $cashAids = CashAid::where("Family_ID", $family->Family_ID)->get();  
-    $materialAids = MaterialAid::where("Family_ID", $family->Family_ID)->get();  
+    $cashAids = CashAid::where("Family_ID", $family->Family_ID)->where('status', 3)->get();  
+    $materialAids = MaterialAid::where("Family_ID", $family->Family_ID)->where('status', 3)->get();  
     $visits = Visit::where('Family_ID', $family->Family_ID)->get();  
     $checklists = CheckList::all();  
     // Return the combined view with family, family members, and cash aids  
