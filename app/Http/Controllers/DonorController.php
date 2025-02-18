@@ -7,11 +7,48 @@ use App\Models\Donor;
 
 class DonorController extends Controller
 {
+    function searchByAjax(Request $request)
+    {
+        $start = $request->input('start', 0);
+        $length = $request->input('length',10);
+        $searchValue = $request->input('search.value');
+        
+        $query = Donor::query();
+        
+        if (!empty($searchValue)) {
+            $query->where('Name', 'like', '%'.$searchValue.'%');
+        }
+        
+        $total = $query->count();
+        $donors = $query->skip($start)->take($length)->get();
+        
+        return response()->json([
+            'draw' => $request->input('draw'),
+            'recordsTotal' => Donor::count(),
+            'recordsFiltered' => $total,
+            'data' => $donors
+        ]);
+    }
+    
+
+//     function searchByAjax(Request $request)
+// {
+
+//         $searchValue = null;
+//         if ($request->has('search') && !empty($request->search['value']))   
+//         $searchValue = $request->search['value'];
+
+//         return Donor::when( isset($searchValue), function ($query) use ($searchValue) {
+//         return $query->where('Name','like', '%'.$searchValue.'%');
+//     })->paginate(10);
+// }
+
+
     public function index()
     {
         // Retrieve all donors
-        $donors = Donor::all();
-        return view('Donors.index', compact('donors'));
+      //  $donors = Donor::paginate(5);
+        return view('Donors.ajaxIndex');
     }
 
     public function create()

@@ -40,6 +40,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Donors/create', [DonorController::class, 'create'])->name('Donors.create');
     Route::post('/Donors/add', [DonorController::class, 'add'])->name('Donors.add');
     Route::get('/Donors/index', [DonorController::class, 'index'])->name('Donors.index');
+
+
     Route::delete('/Donors/index/{id}', [DonorController::class, 'Delete'])->name('Donor.Delete');
     Route::get('/Donors/edit/{id}', [DonorController::class, 'edit'])->name('Donor.edit');
     Route::post('/Donors/edit/{id}', [DonorController::class, 'update'])->name('Donor.update');
@@ -73,7 +75,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/CashAid/details/{family_id}', [CashAidController::class, 'details'])->name('CashAid.details');
 
 
-    // صياغة لتبسيط لعمل مجموعة للتوابع التي لها نفس controller 
+    // صياغة لتبسيط عرض مجموعة للتوابع التي لها نفس controller 
     // Route::controller(CashAidController::class)->prefix('CashAid')->name('CashAid.')->group(function () {  
     //     Route::get('/create/{family_id}', 'create')->name('create');  
     //     Route::post('/add', 'add')->name('add');  
@@ -194,3 +196,4 @@ Route::post('/login', [AuthController::class, 'login']);
 //     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // });
 
+Route::get('/Donors/Search', [DonorController::class, 'searchByAjax'])->name('Donors.searchByAjax');
